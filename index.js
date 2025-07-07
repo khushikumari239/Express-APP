@@ -21,23 +21,47 @@ app.post ("/signup" , function (req, res) {
     // res.json ({
     //     message:"you have signed up"
     // })
-})
+
      const username = req.body.username;
      const password = req.body.password;
 
      users.push ({
-        username: khushiii,
-        password: 12345
+        username: username,
+        password: password
      })
 
-     req.json({
+     res.json({
         message: "You are signed in "
      })
 
-
-app.post ("/signin" , function (req, res) {
-   
 })
 
+    console.log(users)
+
+app.post ("/signin" , function (req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+// Find user
+    const foundUser = users.find(function (u) {
+        return u.username === username && u.password === password;
+    });
+
+    if (foundUser) {
+        const token = generateToken();
+        foundUser.token = token;
+
+        res.json({
+            message: "Sign in successful",
+            token: token
+        });
+    } else {
+        res.status(403).json({
+            message: "Invalid Username or Password"
+       
+        });
+    }
+        console.log(users)
+
+});
 
 app.listen (3000); // that the http server is listening the port 3000
