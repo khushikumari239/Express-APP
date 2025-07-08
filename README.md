@@ -113,3 +113,28 @@ Lets initialise an express app that we will use to generate an `authenticated ba
 This can be improved further by
 
 </aside>
+
+
+-------------------------- After that -------------------------
+
+<h2> Creating an authenticated EP </h2>
+
+Let’s create an endpoint (/me ) that returns the user their information `only if they send their token
+
+```jsx
+
+app.get("/me", (req, res) => {
+    const token = req.headers.authorization;
+    const user = users.find(user => user.token === token);
+    if (user) {
+        res.send({
+            username: user.username
+        })
+    } else {
+        res.status(401).send({
+            message: "Unauthorized"
+        })
+    }
+})
+
+```
