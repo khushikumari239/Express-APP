@@ -175,3 +175,15 @@ The problem is that we need to `send a request to the database` every time the u
 JWTs
 
 --------------
+JWTs, or JSON Web Tokens, are a compact and self-contained way to represent information between two parties. They are commonly used for authentication and information exchange in web applications.
+
+**JWTs are Stateless**: JWTs contain all the information needed to authenticate a request, so the server doesn’t need to store session data. All the `data` is stored in the token itself.
+
+![alt text](image-3.png)
+Here in the above image i tried understanding the JWT's uses... how it works with a hand drawn image by me....
+
+
+Now let's go with 
+** Replace token logic with jwt **
+
+another Image : - ![alt text](image-4.png)
