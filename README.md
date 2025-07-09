@@ -138,3 +138,40 @@ app.get("/me", (req, res) => {
 })
 
 ```
+Image : - ![alt text](image.png)
+<!-- postman output while running shows token invalid  -->
+
+![alt text](<Screenshot 2025-07-09 173631.png>)
+![alt text](<Screenshot 2025-07-09 174240.png>)
+![alt text](<Screenshot 2025-07-09 174257.png>)
+![alt text](<Screenshot 2025-07-09 174340.png>)
+![alt text](<Screenshot 2025-07-09 174858.png>)
+![alt text](<Screenshot 2025-07-09 175445.png>)
+![alt text](<Screenshot 2025-07-09 175451.png>)
+
+![alt text](image-1.png)
+
+Now i ahve created a real end point 
+now \me returns me my data 🥹🔥(my own username and password)
+
+unless i have someone else token i can't take their details
+
+------- The problem is yet it doesn't use JWTs ( json web tokens)---------🌻
+# Tokens vs JWTs
+
+There is a problem with using `stateful` tokens.
+
+## Stateful
+
+By stateful here, we mean that we need to store these tokens in a variable right now (and eventually in a database). 
+
+## Problem
+
+The problem is that we need to `send a request to the database` every time the user wants to hit an `authenticated endpoint`
+![alt text](image-2.png)
+
+## Solution
+
+JWTs
+
+--------------
