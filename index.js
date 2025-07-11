@@ -1,4 +1,4 @@
-const express = require ('express');
+const express = require('express');
 const JWT_SECRET = "khushiisalwayshappy"
 const jwt = require('jsonwebtoken');
 
@@ -23,31 +23,31 @@ const users = [];
 
 // ---------------------------------------------------------------------------------
 
-app.post ("/signup" , function (req, res) {
+app.post("/signup", function (req, res) {
     // res.json ({
     //     message:"you have signed up"
     // })
 
-     const username = req.body.username;
-     const password = req.body.password;
+    const username = req.body.username;
+    const password = req.body.password;
 
-     users.push ({
+    users.push({
         username: username,
         password: password
-     })
+    })
 
-     res.json({
+    res.json({
         message: "You are signed in "
-     })
+    })
 
 })
 
-    console.log(users)
+console.log(users)
 
-app.post ("/signin" , function (req, res) {
+app.post("/signin", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
-// Find user
+    // Find user
     const foundUser = users.find(function (u) {
         return u.username === username && u.password === password;
     });
@@ -56,8 +56,8 @@ app.post ("/signin" , function (req, res) {
     //  Function signature of jwt.sign , it's takes two arguments 1. what you want encode or encrypt (username) , 2.what is your secret that u r using to sign the specific token or create specific tokens  
     if (foundUser) {
         const token = jwt.sign({
-            username : username
-        }, JWT_SECRET );
+            username: username
+        }, JWT_SECRET);
 
         // foundUser.token = token; // no need to store it in the memory anymore 
 
@@ -68,43 +68,44 @@ app.post ("/signin" , function (req, res) {
     } else {
         res.status(403).json({
             message: "Invalid Username or Password"
-       
+
         });
     }
-        console.log(users)
+    console.log(users)
 
 });
 
 // Creating and authenticated endpoint 
 
-app.get ("/me", function(req,res){
-const token = req.headers.token
-let foundUser = null;
+app.get("/me", function (req, res) {
 
-for (let i = 0; i<users.length; i++) {
-    if (users[i]. token == token) {
-        foundUser = users [i]
+    const token = req.headers.token // now they will send me a JWT 
+
+    // How i will find this user in a global database...👇
+    const decodeInformation = jwt.verify (token , JWT_SECRET); // return a json with {username: "khushiii"}
+    const username = decodeInformation.username
+
+// since we have to return the user with the password also ... we still have to find the user in the global variable... but rather that finding them on the token we will find them on the username 
+
+    let foundUser = null;
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username == username) {
+            foundUser = users[i]
+        }
     }
-}
 
-if (foundUser) {
-    res.json ({
-        message: foundUser.username,
-        password: foundUser.password
-    })
-} else{
-    res.json({
-        message: "token invalid"
-    })
-}
+    if (foundUser) {
+        res.json({
+            message: foundUser.username,
+            password: foundUser.password
+        })
+    } else {
+        res.json({
+            message: "token invalid"
+        })
+    }
 
 })
 
-
-
-
-
-
-
-
-app.listen (3000); // that the http server is listening the port 3000
+app.listen(3000); // that the http server is listening the port 3000

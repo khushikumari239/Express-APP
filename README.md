@@ -243,7 +243,15 @@ app.post("/signin", (req, res) => {
     }
 });
 ```
+In the /me endpoint, use jwt.verify to verify the token
+
+![alt text](image-9.png)
+ after changes now let's run it 
+ - sign up ![alt text](image-10.png)
+ - signin ![alt text](image-11.png)
+
+ thsi time it is sharing token with 3parts or dots...and very long this is how jWT works...
+ -- \me and this  ![alt text](image-12.png) done without hitting the DB 
 
 
-
-
+![alt text](image-13.png)
